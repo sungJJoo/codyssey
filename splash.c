@@ -1,11 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h> // system 함수 사용 
+#include <stdlib.h> // system 함수 사용
 
 void clear_screen() {
     #ifdef _WIN32
-        system("cls");  // 윈도우에서는 화면을 지우는 명령
-    #else
-        system("clear");  // 유닉스 기반 시스템(Linux, macOS 등)에서 화면을 지우는 명령
+        system("cls"); 
     #endif
 }
 
@@ -30,6 +28,12 @@ void print_splash_screen(char *name, char *date) {
     printf("================================================================================\n");
 }
 
+void delay_3_seconds() {
+    #ifdef _WIN32
+        system("timeout /t 3 >nul");  // 3초 대기
+    #endif
+}
+
 int main() {
     char name[50];
     char date[11]; // yyyy-mm-dd 형식에 맞추기 위해 11자리 문자열 배열
@@ -42,6 +46,7 @@ int main() {
     
     printf("**입력이 정상적으로 처리되었습니다.**\n");
 
+    delay_3_seconds(); // 3초 대기
     clear_screen(); // 화면 지우기
 
     print_splash_screen(name, date); // 스플래시 화면 출력
