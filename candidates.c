@@ -19,9 +19,9 @@ typedef struct {
 // 생년월일을 기반으로 나이 계산하는 함수
 int calculate_age(char birth_date[]) {
     int year, month, day;
-    sscanf(birth_date, "%d/%d/%d", &year, &month, &day);
-    int current_year = 2024;
-    int age = current_year - year;
+    sscanf(birth_date, "%d/%d/%d", &year, &month, &day); //sscanf %d 공백으로 구분된 문자열 정수로 읽기
+    int current_year = 2024; //현재 년도를 2024년도로 설정 
+    int age = current_year - year; // 나이는 현재 년도 - 출생 연도 
     return age;
 }
 
@@ -29,7 +29,7 @@ int calculate_age(char birth_date[]) {
 void remove_newline(char* str) {
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] == '\n') {
-            str[i] = '\0'; // 개행 문자를 NULL로 변경
+            str[i] = '\0'; // 개행 문자를 NULL로 변경 사용 이유? fgets로 입력받은 문자열에서 \n 발견하면 null로 제거 
             break;
         }
     }
@@ -41,7 +41,7 @@ void input_candidate_data(member_info *candidate, int number) {
 
     // 이름 입력
     printf("1. 성명: ");
-    fgets(candidate->name, 50, stdin);
+    fgets(candidate->name, 50, stdin); //fgets로 입력 버퍼 크기 50 stdin << 키보드 입력 표준 스트림 
     remove_newline(candidate->name);  // 개행 문자 제거
     
     // 생년월일 입력
@@ -95,7 +95,7 @@ void input_candidate_data(member_info *candidate, int number) {
     remove_newline(candidate->introduction); // 개행 문자 제거
 }
 
-// 후보자 정보를 출력하는 함수 (업데이트된 버전)
+// 후보자 정보를 출력하는 함수 
 void display_candidate_data(member_info *candidate) {
     int age = calculate_age(candidate->birth_date);
 
@@ -103,7 +103,7 @@ void display_candidate_data(member_info *candidate) {
     printf("=============================================================================================\n");
     printf("성   명 | 생   일 | 성별 | 메   일            | 국적 | BMI | 주스킬 | 보조스킬 | TOPIK | MBTI | \n");
     printf("=============================================================================================\n");
-    printf("%-7s | %-8s | %c   | %-19s | %-5s | %.1f | %-7s | %-7s | %-5d | %-4s |\n", 
+    printf("%-7s | %-8s | %c   | %-19s | %-5s | %.1f | %-7s | %-7s | %-5d | %-4s |\n", //7칸의 문자열(작으면 공백추가),8칸의 문자열,문자 출력,왼쪽 정렬 19문자,5공간 문자열,실수 한자리 
         candidate->name, candidate->birth_date, candidate->gender, candidate->email,
         candidate->nationality, candidate->bmi, candidate->main_skill, candidate->secondary_skill,
         candidate->topik, candidate->mbti);
@@ -116,11 +116,11 @@ void display_candidate_data(member_info *candidate) {
 
 // 메인 함수
 int main() {
-    char audition_group_name[50];
+    char audition_group_name[50]; //오디션 그룹이름이 들어갈 배열 선언
     
     // 오디션 그룹명 입력
     printf("오디션 그룹명을 입력하세요: ");
-    fgets(audition_group_name, 50, stdin);
+    fgets(audition_group_name, 50, stdin);//오디션 그룹명 입력 
     remove_newline(audition_group_name); // 개행 문자 제거
     
     // 입력 화면 출력
