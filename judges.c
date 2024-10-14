@@ -9,9 +9,9 @@ void parse_judge_info(char *judge_data, char *name, char *gender, char *organiza
     int i = 0, j = 0;//필드랑 인덱스 추적 변수
     char *fields[] = {name, gender, organization, title, expertise, email, phone};
     //이름 성별 소속 등등 포인터 배열
-    for (int f = 0; f < 7; f++) {
-        while (judge_data[i] != ',' && judge_data[i] != '\0') {
-            fields[f][j++] = judge_data[i++];
+    for (int f = 0; f < 7; f++) { //위에 파싱한 변수들만큼 반복
+        while (judge_data[i] != ',' && judge_data[i] != '\0') { //, 쉼표나 문자열 끝 \0을 만날때까지 해당 문자를 
+            fields[f][j++] = judge_data[i++]; // fields[f]에게 복사 
         }
         fields[f][j] = '\0';  // 문자열 끝에 NULL 추가
         i++;  // 다음 필드로 넘어가기 위해 ',' 건너뜀
@@ -66,7 +66,7 @@ int main() {
     printf("++++++++++++++++++++++++++++++++++++\n");
 
     // 심사자 정보 입력
-    for (int i = 0; i < judge_count; i++) {
+    for (int i = 0; i < judge_count; i++) { //judge_count 수에 입력된 만큼 반복해서 입력받음
         printf("* 심사자 %d 정보 입력 (형식: 이름,성별,소속,직함,전문분야,메일,전화):\n", i + 1);
         fgets(judges_array[i], MAX_INFO_LEN, stdin);
         
@@ -87,10 +87,10 @@ int main() {
 
     // 심사자 풀 확인 여부
     char confirm;
-    printf("심사자 풀을 확인할까요? (Y/N): ");
+    printf("심사자 풀을 확인할까요? (Y/N): "); //출력 여부
     scanf(" %c", &confirm);
 
-    if (confirm == 'Y') {
+    if (confirm == 'Y') { //Y를 입력할시 
         printf("####################################\n");
         printf("#       심사자 풀 데이터 출력       #\n");
         printf("####################################\n");
