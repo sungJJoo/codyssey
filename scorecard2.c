@@ -6,6 +6,23 @@
 #define MAX_SCORE 100 // 점수 최대값
 #define MIN_SCORE 10 // 점수 최소값 
 
+// 문자열 복사 함수
+void my_strcpy(char *dest, const char *src) {
+    while (*src) {
+        *dest++ = *src++;
+    }
+    *dest = '\0'; // 널 종료
+}
+
+// 문자열 비교 함수
+int my_strcmp(const char *str1, const char *str2) {
+    while (*str1 && (*str1 == *str2)) {
+        str1++;
+        str2++;
+    }
+    return *(unsigned char *)str1 - *(unsigned char *)str2;
+}
+
 int main() {
     // 후보자 정보
     char candidate_names[NUM_CANDIDATES][30] = { 
@@ -38,15 +55,6 @@ int main() {
     }
     if (expertise[len - 1] == '\n') {
         expertise[len - 1] = '\0';
-    }
-
-    // 문자열 비교 함수 정의 (main 안에)
-    int my_strcmp(const char *str1, const char *str2) {
-        while (*str1 && (*str1 == *str2)) {
-            str1++;
-            str2++;
-        }
-        return *(unsigned char *)str1 - *(unsigned char *)str2;
     }
 
     // 전문 분야에 따른 처리: 문자열 비교
@@ -163,6 +171,11 @@ int main() {
                     scoring_sheet[j][k] = scoring_sheet[j + 1][k];
                     scoring_sheet[j + 1][k] = temp;
                 }
+                // 이름도 교환
+                char temp_name[30];
+                my_strcpy(temp_name, candidate_names[j]);
+                my_strcpy(candidate_names[j], candidate_names[j + 1]);
+                my_strcpy(candidate_names[j + 1], temp_name);
             }
         }
     }
