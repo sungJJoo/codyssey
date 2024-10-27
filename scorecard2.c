@@ -6,23 +6,6 @@
 #define MAX_SCORE 100 // 점수 최대값
 #define MIN_SCORE 10 // 점수 최소값 
 
-// 문자열 복사 함수
-void my_strcpy(char *dest, const char *src) {
-    while (*src) {
-        *dest++ = *src++;
-    }
-    *dest = '\0'; // 널 종료
-}
-
-// 문자열 비교 함수
-int my_strcmp(const char *str1, const char *str2) {
-    while (*str1 && (*str1 == *str2)) {
-        str1++;
-        str2++;
-    }
-    return *(unsigned char *)str1 - *(unsigned char *)str2;
-}
-
 int main() {
     // 후보자 정보
     char candidate_names[NUM_CANDIDATES][30] = { 
@@ -30,10 +13,10 @@ int main() {
         "Helena Silva", "Liam Wilson", 
         "Jin Park", "Alice Chen"
     };
-    int candidate_ids[NUM_CANDIDATES] = {123456, 234567, 345678, 456789, 567890, 678901}; 
+    int candidate_ids[NUM_CANDIDATES] = {1,2,3,4,5,6}; 
 
     // 후보자의 점수를 저장하는 배열 (ID, 5개의 점수, 총점)
-    int scoring_sheet[NUM_CANDIDATES][NUM_FIELDS + 2] = {0}; 
+    int scoring_sheet[NUM_CANDIDATES][NUM_FIELDS + 2] = {0}; // 모든 배열의 요소를 0으로 초기화
 
     char judge_name[30]; 
     char expertise[20]; 
@@ -49,12 +32,12 @@ int main() {
     fgets(expertise, sizeof(expertise), stdin);
 
     // 전문 분야에서 개행 문자 '\n' 제거
-    int len = 0;
-    while (expertise[len] != '\0') {
+    int len = 0; //while 문 반복 제어변수
+    while (expertise[len] != '\0') { // 문자열 끝 즉 null 찾을때까지 len 증가 이러면 expertise의 길이를 알 수 있음  
         len++;
     }
-    if (expertise[len - 1] == '\n') {
-        expertise[len - 1] = '\0';
+    if (expertise[len - 1] == '\n') { // 구한 expertise의 길이 -1하는 이유는 ex) 음악\n 은 len 길이가 4가됨 음 1 악 2 \n 3 \0 4라서 이걸 없애주는거임
+        expertise[len - 1] = '\0'; //개행 문자를 null로 처리해서 음악 으로 수정
     }
 
     // 전문 분야에 따른 처리: 문자열 비교
@@ -62,7 +45,11 @@ int main() {
     char *fields[] = {"", "음악", "댄스", "보컬", "비주얼", "전달력"};
 
     for (int i = 1; i <= NUM_FIELDS; i++) {
-        if (my_strcmp(expertise, fields[i]) == 0) {
+        int j = 0;
+        while (fields[i][j] != '\0' && expertise[j] != '\0' && fields[i][j] == expertise[j]) {
+            j++;
+        }
+        if (fields[i][j] == '\0' && expertise[j] == '\0') {
             field_index = i;
             break;
         }
@@ -173,9 +160,24 @@ int main() {
                 }
                 // 이름도 교환
                 char temp_name[30];
-                my_strcpy(temp_name, candidate_names[j]);
-                my_strcpy(candidate_names[j], candidate_names[j + 1]);
-                my_strcpy(candidate_names[j + 1], temp_name);
+                int l = 0;
+                while (candidate_names[j][l] != '\0') {
+                    temp_name[l] = candidate_names[j][l];
+                    l++;
+                }
+                temp_name[l] = '\0'; // 널 종료
+                l = 0;
+                while (candidate_names[j + 1][l] != '\0') {
+                    candidate_names[j][l] = candidate_names[j + 1][l];
+                    l++;
+                }
+                candidate_names[j][l] = '\0'; // 널 종료
+                l = 0;
+                while (temp_name[l] != '\0') {
+                    candidate_names[j + 1][l] = temp_name[l];
+                    l++;
+                }
+                candidate_names[j + 1][l] = '\0'; // 널 종료
             }
         }
     }
