@@ -42,7 +42,7 @@ int main() {
 
     // 전문 분야에 따른 처리: 문자열 비교
     int field_index = -1; //잘못된 전문 분야 입력 예외 처리 
-    char *fields[] = {"", "음악", "댄스", "보컬", "비주얼", "전달력"};
+    char *fields[] = {"", "음악 소양", "댄스", "보컬", "비주얼", "전달력"};
 
     for (int i = 1; i <= NUM_FIELDS; i++) {
         int j = 0;
@@ -65,7 +65,7 @@ int main() {
         int score;
         printf("후보자: %s\n", candidate_names[i]); //후보자 이름 배열에 들어있는걸 i 인덱스 순서대로 출력 
         do { //do-while문 사용해서 if문안에 조건은 잘못된 값일 때 경고 메시지 출력 while 조건이 같은 이유는 유효할때까지 계속 반복할려고 
-            printf("%s 소양 점수 (10~100): ", expertise); //전문분야 변수 
+            printf("%s  점수 (10~100): ", expertise); //전문분야 변수 
             scanf("%d", &score); // 사용자에게 점수 입력 받기 
             if (score < MIN_SCORE || score > MAX_SCORE) {  //최소가 10점 ~ 100점이므로 and 연산자 사용해서 조건확인
                 printf("잘못된 값입니다. 다시 입력하세요.\n");
@@ -124,7 +124,7 @@ int main() {
 
             // 새로운 점수 입력
             do {
-                printf("%s 소양 새로운 점수 (10~100): ", expertise);
+                printf("%s  새로운 점수 (10~100): ", expertise);
                 scanf("%d", &new_score);
                 if (new_score < MIN_SCORE || new_score > MAX_SCORE) {
                     printf("잘못된 값입니다. 다시 입력하세요.\n");
