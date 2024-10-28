@@ -13,15 +13,15 @@ int main() {
         "Helena Silva", "Liam Wilson", 
         "Jin Park", "Alice Chen"
     };
-    int candidate_ids[NUM_CANDIDATES] = {1,2,3,4,5,6}; 
+    int candidate_ids[NUM_CANDIDATES] = {1,2,3,4,5,6}; //순서대로 박지연,Ethan Smith 
 
     // 후보자의 점수를 저장하는 배열 (ID, 5개의 점수, 총점)
     int scoring_sheet[NUM_CANDIDATES][NUM_FIELDS + 2] = {0}; // 모든 배열의 요소를 0으로 초기화
 
-    char judge_name[30]; 
-    char expertise[20]; 
+    char judge_name[30]; //심사자 이름
+    char expertise[20]; //전문 분야
 
-    printf("####################################\n");
+    printf("####################################\n"); //젤 처음에 나오는 출력문
     printf("#       오디션 심사 결과 입력       #\n");
     printf("####################################\n");
     
@@ -41,7 +41,7 @@ int main() {
     }
 
     // 전문 분야에 따른 처리: 문자열 비교
-    int field_index = -1;
+    int field_index = -1; //잘못된 전문 분야 입력 예외 처리 
     char *fields[] = {"", "음악", "댄스", "보컬", "비주얼", "전달력"};
 
     for (int i = 1; i <= NUM_FIELDS; i++) {
@@ -50,34 +50,34 @@ int main() {
             j++;
         }
         if (fields[i][j] == '\0' && expertise[j] == '\0') {
-            field_index = i;
+            field_index = i; // 여기서 for문돌면서 전문 분야 입력 받기 
             break;
         }
     }
 
-    if (field_index == -1) {
+    if (field_index == -1) { // 아무런 입력도 받지 않으면 예외 처리 
         printf("잘못된 전문 분야입니다.\n");
         return 1;  // 프로그램 종료
     }
 
     // 후보자에 대한 점수 입력
-    for (int i = 0; i < NUM_CANDIDATES; i++) {
+    for (int i = 0; i < NUM_CANDIDATES; i++) { //후보자의 수만큼 반복 
         int score;
-        printf("후보자: %s\n", candidate_names[i]);
-        do {
-            printf("%s 소양 점수 (10~100): ", expertise);
-            scanf("%d", &score);
-            if (score < MIN_SCORE || score > MAX_SCORE) {
+        printf("후보자: %s\n", candidate_names[i]); //후보자 이름 배열에 들어있는걸 i 인덱스 순서대로 출력 
+        do { //do-while문 사용해서 if문안에 조건은 잘못된 값일 때 경고 메시지 출력 while 조건이 같은 이유는 유효할때까지 계속 반복할려고 
+            printf("%s 소양 점수 (10~100): ", expertise); //전문분야 변수 
+            scanf("%d", &score); // 사용자에게 점수 입력 받기 
+            if (score < MIN_SCORE || score > MAX_SCORE) {  //최소가 10점 ~ 100점이므로 and 연산자 사용해서 조건확인
                 printf("잘못된 값입니다. 다시 입력하세요.\n");
             }
-        } while (score < MIN_SCORE || score > MAX_SCORE);
-        scoring_sheet[i][0] = candidate_ids[i];  // ID 저장
-        scoring_sheet[i][field_index] = score;  // 해당 분야 점수 저장
+        } while (score < MIN_SCORE || score > MAX_SCORE); //이 조건이 true 이면 유효한 점수가 입력될때까지 무한 반복 
+        scoring_sheet[i][0] = candidate_ids[i];  // ID 저장 설정되어있는 ID를 후보자에게 
+        scoring_sheet[i][field_index] = score;  // 해당 분야 점수 저장 점수 필드에 점수 저장
     }
 
     // 총점 계산
     for (int i = 0; i < NUM_CANDIDATES; i++) {
-        int total = 0;
+        int total = 0; //총점
         for (int j = 1; j <= NUM_FIELDS; j++) {
             total += scoring_sheet[i][j];  // 각 분야 점수 합산
         }
@@ -183,7 +183,6 @@ int main() {
     }
 
     // 상위 4명 출력
-    printf("상위 4명:\n");
     for (int i = 0; i < 4; i++) {
         printf("%d. %s\n", i + 1, candidate_names[i]);  // 상위 후보자 출력
     }
