@@ -77,13 +77,13 @@ int main() {
 
             // BMI 체형 분류
             if (candidates[i].bmi < 18.5) {
-                sprintf(milliways_arr[j].bmi_category, "Underweight");
+                sprintf(milliways_arr[j].bmi_category, "저체중");
             } else if (candidates[i].bmi < 24.9) {
-                sprintf(milliways_arr[j].bmi_category, "Normal");
+                sprintf(milliways_arr[j].bmi_category, "정상");
             } else if (candidates[i].bmi < 29.9) {
-                sprintf(milliways_arr[j].bmi_category, "Overweight");
+                sprintf(milliways_arr[j].bmi_category, "과체중");
             } else {
-                sprintf(milliways_arr[j].bmi_category, "Obese");
+                sprintf(milliways_arr[j].bmi_category, "비만");
             }
 
             j++;
